@@ -33,8 +33,8 @@ struct ContentView: View {
                     //using this hardcodes the font size. Not dynamic
                         .foregroundColor(.white)
                 }
+                .padding(.bottom, 40)
                 
-                Spacer()
                 
                 HStack(spacing: 20) {
                     WeatherDayView(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temperature: 74)
@@ -51,6 +51,22 @@ struct ContentView: View {
                 Spacer()
                 //Spacers allow you to move the
                 //order of the modifer matters
+                
+                Button {
+                    print("tapped")
+                } label: {
+                    Text("Change Day Time")
+                        .frame(width: 280, height: 50)
+                        .background(Color.white)
+                        .font(.system(size: 20, weight: .bold, design: .default))
+                        .cornerRadius(10)
+                }
+                
+                Spacer()
+                //Spacers count as views
+                //In the overall view you are limited to 10 views
+                //Spacers can be over used
+                
                  
                 }
             }
