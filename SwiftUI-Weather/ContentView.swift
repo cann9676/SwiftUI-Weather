@@ -10,38 +10,19 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [.blue, .orange, Color("LightBlue")]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing)
-                .edgesIgnoringSafeArea(.all)
+         
+            BackgroundView(topColor: .blue, middleColor: .orange, bottomColor: .white)
             VStack {
-                Text("Cupertino, CA")
-                    .font(.system(size: 32, weight: .medium, design: .default))
-                    .foregroundColor(.white)
-                    .padding()
+               CityTextView(cityName: "Cupertino, CA")
                 
-                VStack(spacing: 10)  {
-                    Image(systemName: "cloud.sun.fill")
-                        .renderingMode(.original)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 180, height: 180)
-                    //size of images can be test through trial and error
-                    
-                    Text("76°")
-                        .font(.system(size: 76, weight: .medium))
-                    //using this hardcodes the font size. Not dynamic
-                        .foregroundColor(.white)
-                }
-                .padding(.bottom, 40)
-                
+                MainWeatherStatusView(imageName: "cloud.sun.fill", temprature: 76)
                 
                 HStack(spacing: 20) {
                     WeatherDayView(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temperature: 74)
                     
                     WeatherDayView(dayOfWeek: "WED", imageName: "cloud.sun.fill", temperature: 88)
                    
-                    WeatherDayView(dayOfWeek: "THU", imageName: "sun.dust.fill", temperature: 39)
+                    WeatherDayView(dayOfWeek: "THU", imageName: "sun.dust.fill", temperature: 80)
                   
                     WeatherDayView(dayOfWeek: "FRI", imageName: "cloud.bolt.fill", temperature: 90)
                   
@@ -55,11 +36,7 @@ struct ContentView: View {
                 Button {
                     print("tapped")
                 } label: {
-                    Text("Change Day Time")
-                        .frame(width: 280, height: 50)
-                        .background(Color.white)
-                        .font(.system(size: 20, weight: .bold, design: .default))
-                        .cornerRadius(10)
+                    WeatherButton(title: "Change Day Time", textColor: .blue, backgroundColor: .white)
                 }
                 
                 Spacer()
@@ -103,3 +80,53 @@ struct WeatherDayView: View {
         }
     }
 }
+
+struct BackgroundView: View {
+    var topColor: Color
+    var middleColor: Color
+    var bottomColor: Color
+            
+    var body: some View {
+        LinearGradient(gradient: Gradient(colors: [topColor, middleColor, bottomColor]),
+                //.blue, .orange, Color("LightBlue")
+                       startPoint: .topLeading,
+                       endPoint: .bottomTrailing)
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+
+
+struct CityTextView: View {
+    var cityName: String
+    var body: some View {
+        Text(cityName)
+            .font(.system(size: 32, weight: .medium, design: .default))
+            .foregroundColor(.white)
+            .padding()
+    }
+}
+
+struct MainWeatherStatusView: View {
+    
+    var imageName: String
+    var temprature: Int
+    
+    var body: some View {
+        VStack(spacing: 10)  {
+            Image(systemName: imageName)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 180, height: 180)
+            //size of images can be test through trial and error
+            
+            Text("\(temprature)°")
+                .font(.system(size: 76, weight: .medium))
+            //using this hardcodes the font size. Not dynamic
+                .foregroundColor(.white)
+        }
+        .padding(.bottom, 40)
+    }
+}
+
+
